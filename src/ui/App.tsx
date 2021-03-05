@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Toasts from './components/Toasts/Toasts';
+import Waveform from './components/Waveform/Waveform';
 
 import AppActions from './actions/AppActions';
 import * as PlayerActions from './actions/PlayerActions';
@@ -37,6 +38,14 @@ const Museeks: React.FC = (props) => {
             history.push('/settings');
           }
           break;
+        case '.':
+          if (isCtrlKey(e)) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('BBZ first message ')
+            history.push('/library');
+          }
+          break;
         default:
           break;
       }
@@ -52,6 +61,7 @@ const Museeks: React.FC = (props) => {
     <div className={`${styles.root} os-${os.platform()}`}>
       <KeyBinding onKey={onKey} preventInputConflict />
       <Header />
+      <Waveform />
       <main className={styles.mainContent}>{props.children}</main>
       <Footer />
       <Toasts />
