@@ -16,7 +16,6 @@ class Waveform extends React.Component<Props> {
     this.nothingYet = props.nothingYet ?? 'nothing';
   }
 
-
   render() {
     // const { somethingYouNeedFromProps } = this.props;
 
