@@ -79,8 +79,16 @@ const sharedConfig = {
         oneOf: [
           {
             test: /\.(ts|tsx)([?]?.*)$/,
-            use: 'ts-loader',
             exclude: /node_modules/,
+            // use: 'ts-loader',
+            use: [
+              {
+                  loader: 'ts-loader',// (or awesome-typescript-loader)
+                  options: {
+                      configFile: 'tsconfig.dev.json'
+                  },
+              },
+            ],
           },
           {
             test: /\.module\.css$/,

@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# local-only compiler overrides
+tsconfig.dev.json
+
 dist/
 cache/
 build/
