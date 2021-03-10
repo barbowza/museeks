@@ -1,5 +1,6 @@
 import React from 'react';
 import Player from '../../lib/player';
+import WaveSurfer from 'wavesurfer.js';
 
 import styles from './Waveform.module.css';
 
@@ -28,6 +29,24 @@ class Waveform extends React.Component<Props, State> {
 
   componentDidMount() {
     Player.getAudio().addEventListener('timeupdate', this.tick);
+    const wavesurfer = WaveSurfer.create({
+      container: document.querySelector('#waveform'),
+      waveColor: '#A8DBA8',
+      progressColor: '#3B8686',
+      backend: 'MediaElement',
+    });
+    wavesurfer.load(Player.getAudio(), [
+      0.7218,
+      0.2183,
+      0.3165,
+      0.5198,
+      0.0137,
+      0.7218,
+      0.2183,
+      0.3165,
+      0.5198,
+      0.0137,
+    ], 'none');
   }
 
   componentWillUnmount() {
@@ -42,11 +61,13 @@ class Waveform extends React.Component<Props, State> {
     // const { somethingYouNeedFromProps } = this.props;
 
     return (
-      <header className={styles.header}>
-        <div className={styles.header__mainControls}>one {this.state.cursorPosition}</div>
-        <div className={styles.header__playingBar}>two</div>
-        <div className={styles.header__search}>three</div>
-      </header>
+      <div className={styles.container}>
+        <div className={styles.left}>{this.state.cursorPosition}</div>
+        <div className={styles.waveform} id='waveform'>
+          waveform
+        </div>
+        <div className={styles.right}>right</div>
+      </div>
     );
   }
 }

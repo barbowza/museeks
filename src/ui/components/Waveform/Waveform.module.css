@@ -1,17 +1,17 @@
-:global(.os-darwin) .header__main-controls {
+:global(.os-darwin) .main-controls {
   padding-left: 65px; /* let some space for titleBarStyle */
 }
 
 /* The native frame may be light, so we need to increase the contrast between
-   the frame and the header */
+   the frame and the container */
 :global(.os-win32),
 :global(.os-linux) {
-  .header {
+  .container {
     border-top: 1px solid var(--border-color);
   }
 }
 
-.header {
+.container {
   border-bottom: 1px solid var(--border-color);
   background-color: var(--header-bg);
   color: var(--header-color);
@@ -19,31 +19,34 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 50px;
+  height: 132px;
   flex: 0 0 auto;
 
   /* Draggable region (zone able to move the window) */
   -webkit-app-region: drag;
 }
 
-.header__main-controls {
-  width: 220px;
+.left {
+  width: 120px;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   padding-right: 10px;
 }
 
-.header__search {
+.waveform {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* max-width: 600px; */
+  background-color: black;
+
+}
+
+.right {
   -webkit-app-region: no-drag;
-  width: 220px;
+  width: 120px;
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
 }
 
-.header__playing-bar {
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 600px;
-}
