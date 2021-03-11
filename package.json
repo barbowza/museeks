@@ -69,6 +69,7 @@
     "wavesurfer.js": "^4.6.0"
   },
   "devDependencies": {
+    "@types/wavesurfer.js": "^3.3.2",
     "@types/bluebird": "3.5.33",
     "@types/classnames": "2.2.11",
     "@types/history": "4.7.8",
