@@ -14,11 +14,13 @@ interface State {
 
 class Waveform extends React.Component<Props, State> {
   nothingYet: string;
+  waveformRef: any;
 
   constructor(props: Props) {
     super(props);
 
     this.nothingYet = props.nothingYet ?? 'nothing';
+    this.waveformRef = React.createRef();
 
     this.state = {
       cursorPosition: 0,
@@ -30,23 +32,15 @@ class Waveform extends React.Component<Props, State> {
   componentDidMount() {
     Player.getAudio().addEventListener('timeupdate', this.tick);
     const wavesurfer = WaveSurfer.create({
-      container: document.querySelector('#waveform'),
+      container: this.waveformRef.current,
       waveColor: '#A8DBA8',
       progressColor: '#3B8686',
       backend: 'MediaElement',
     });
-    wavesurfer.load(Player.getAudio(), [
-      0.7218,
-      0.2183,
-      0.3165,
-      0.5198,
-      0.0137,
-      0.7218,
-      0.2183,
-      0.3165,
-      0.5198,
-      0.0137,
-    ], 'none');
+    wavesurfer.load(
+      Player.getAudio(),
+      [0.7218, 0.2183, 0.3165, 0.5198, 0.0137, 0.7218, 0.2183, 0.3165, 0.5198, 0.0137]
+    );
   }
 
   componentWillUnmount() {
@@ -63,7 +57,7 @@ class Waveform extends React.Component<Props, State> {
     return (
       <div className={styles.container}>
         <div className={styles.left}>{this.state.cursorPosition}</div>
-        <div className={styles.waveform} id='waveform'>
+        <div className={styles.waveform} ref={this.waveformRef}>
           waveform
         </div>
         <div className={styles.right}>right</div>
