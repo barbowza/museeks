@@ -21,6 +21,7 @@ class Player {
       ...options,
     };
 
+    // Create an empty HTMLAudioElement offscreen for later use.
     this.audio = new Audio();
 
     this.audio.defaultPlaybackRate = mergedOptions.playbackRate;
@@ -91,6 +92,7 @@ class Player {
   setAudioSrc(src: string) {
     // When we change song, need to update the thresholdReached indicator.
     this.durationThresholdReached = false;
+    console.log(`player.ts.setAudioSrc: src = ${src}`);
     this.audio.src = src;
   }
 
