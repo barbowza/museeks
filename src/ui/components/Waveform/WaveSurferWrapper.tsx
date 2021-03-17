@@ -7,6 +7,10 @@ export default class WaveSurferWrapper {
     console.log(`WaveSurferWrapper created`);
   }
 
+  getWaveSurfer(): WaveSurfer|undefined {
+    return this.wavesurfer;
+  }
+
   create(ele: HTMLElement) {
     this.wavesurfer = WaveSurfer.create({
       container: ele,

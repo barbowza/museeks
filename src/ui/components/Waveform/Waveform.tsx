@@ -54,18 +54,27 @@ class Waveform extends React.Component<Props, State> {
     // I want an event triggering when Player.setaudioSrc is called that sends me the src path.
     // WS exportPCM given src path will return me the peaks
     // Pass peaks to WS.load (as done in componentDidMount above)
-    Player.getAudio().addEventListener('play', async () => {
+    const attachPeaks = async () => {
+      Player.getAudio().removeEventListener('play', attachPeaks);
+
       const src = Player.getSrc();
       console.log(`Waveform received 'play' event: src: ${src}`);
       // Create a temporary (offscreen) HTMLAudioElement to give wavesurfer something to work with when extracting peak data
       const tmpAudioEle = document.createElement('HTMLAudioElement');
       const tmpWaveSurfer = new WaveSurferWrapper();
       tmpWaveSurfer.create(tmpAudioEle);
-      tmpWaveSurfer.onLoaded(()=>{
-        tmpWaveSurfer.exportPCM().then(console.log).catch(console.log);
-      })
+      tmpWaveSurfer.onLoaded(() => {
+        tmpWaveSurfer.exportPCM().then(peaks=>{
+          this.wavesurferWrapper.assignAudioEleAndPeaks(audioEle, peaks);
+          const ws = this.wavesurferWrapper.getWaveSurfer();
+          if (ws) {
+            ws.play();
+          }
+        }).catch(console.error);
+      });
       tmpWaveSurfer.loadUrl(src);
-    });
+    }
+    Player.getAudio().addEventListener('play', attachPeaks);
   }
 
   componentWillUnmount() {
