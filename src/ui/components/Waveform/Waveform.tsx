@@ -36,9 +36,9 @@ class Waveform extends React.Component<Props, State> {
     this.wavesurferWrapper.create(ele);
 
     // WIP Can remove this once we're responding to the Player.setSrc event
-    const audio = Player.getAudio();
+    const audioEle = Player.getAudio();
 
-    this.wavesurferWrapper.load(audio, [
+    this.wavesurferWrapper.assignAudioEleAndPeaks(audioEle, [
       0.7218,
       0.2183,
       0.3165,
@@ -57,6 +57,14 @@ class Waveform extends React.Component<Props, State> {
     Player.getAudio().addEventListener('play', async () => {
       const src = Player.getSrc();
       console.log(`Waveform received 'play' event: src: ${src}`);
+      // Create a temporary (offscreen) HTMLAudioElement to give wavesurfer something to work with when extracting peak data
+      const tmpAudioEle = document.createElement('HTMLAudioElement');
+      const tmpWaveSurfer = new WaveSurferWrapper();
+      tmpWaveSurfer.create(tmpAudioEle);
+      tmpWaveSurfer.onLoaded(()=>{
+        tmpWaveSurfer.exportPCM().then(console.log).catch(console.log);
+      })
+      tmpWaveSurfer.loadUrl(src);
     });
   }
 
