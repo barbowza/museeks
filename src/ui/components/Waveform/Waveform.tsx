@@ -60,7 +60,9 @@ class Waveform extends React.Component<Props, State> {
       const src = Player.getSrc();
       console.log(`Waveform received 'play' event: src: ${src}`);
       // Create a temporary (offscreen) HTMLAudioElement to give wavesurfer something to work with when extracting peak data
-      const tmpAudioEle = document.createElement('HTMLAudioElement');
+      // const tmpAudioEle = document.createElement('HTMLAudioElement');
+      const tmpAudioEle = new Audio();
+
       const tmpWaveSurfer = new WaveSurferWrapper();
       tmpWaveSurfer.create(tmpAudioEle);
       tmpWaveSurfer.onLoaded(() => {
