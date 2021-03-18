@@ -66,10 +66,7 @@ class Waveform extends React.Component<Props, State> {
       tmpWaveSurfer.onLoaded(() => {
         tmpWaveSurfer.exportPCM().then(peaks=>{
           this.wavesurferWrapper.assignAudioEleAndPeaks(audioEle, peaks);
-          const ws = this.wavesurferWrapper.getWaveSurfer();
-          if (ws) {
-            ws.play();
-          }
+          this.wavesurferWrapper.play();
         }).catch(console.error);
       });
       tmpWaveSurfer.loadUrl(src);

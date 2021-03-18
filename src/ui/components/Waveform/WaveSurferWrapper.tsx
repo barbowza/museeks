@@ -7,10 +7,6 @@ export default class WaveSurferWrapper {
     console.log(`WaveSurferWrapper created`);
   }
 
-  getWaveSurfer(): WaveSurfer|undefined {
-    return this.wavesurfer;
-  }
-
   create(ele: HTMLElement) {
     this.wavesurfer = WaveSurfer.create({
       container: ele,
@@ -51,4 +47,11 @@ export default class WaveSurferWrapper {
     }
     return Promise.reject();
   }
+
+  play() {
+    if (this.wavesurfer) {
+      this.wavesurfer.play();
+    }
+  }
+
 }
