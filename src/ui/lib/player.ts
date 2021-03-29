@@ -1,4 +1,5 @@
 import * as app from './app';
+import PlayerWavesurfer from './player-wavesurfer';
 
 interface PlayerOptions {
   playbackRate?: number;
@@ -8,7 +9,8 @@ interface PlayerOptions {
 }
 
 class Player {
-  private audio: HTMLAudioElement;
+  private audio: HTMLAudioElement|PlayerWavesurfer;
+
   private durationThresholdReached: boolean;
   public threshold: number;
 
@@ -22,7 +24,12 @@ class Player {
     };
 
     // Create an empty HTMLAudioElement offscreen for later use.
-    this.audio = new Audio();
+    /* 
+    this.audio = new Audio(); 
+    //*/
+    //*
+    this.audio = new PlayerWavesurfer();
+    //*/
 
     this.audio.defaultPlaybackRate = mergedOptions.playbackRate;
     // eslint-disable-next-line

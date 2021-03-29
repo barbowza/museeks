@@ -85,7 +85,7 @@ const sharedConfig = {
               {
                   loader: 'ts-loader',// (or awesome-typescript-loader)
                   options: {
-                      configFile: 'tsconfig.dev.json'
+                      configFile: 'tsconfig.json'
                   },
               },
             ],
