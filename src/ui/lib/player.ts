@@ -9,7 +9,8 @@ interface PlayerOptions {
 }
 
 class Player {
-  private audio: HTMLAudioElement|PlayerWavesurfer;
+  private audio: HTMLAudioElement;
+  // private audio: HTMLAudioElement|PlayerWavesurfer;
 
   private durationThresholdReached: boolean;
   public threshold: number;
@@ -24,10 +25,10 @@ class Player {
     };
 
     // Create an empty HTMLAudioElement offscreen for later use.
-    /* 
+    //* 
     this.audio = new Audio(); 
     //*/
-    //*
+    /*
     this.audio = new PlayerWavesurfer();
     //*/
 
