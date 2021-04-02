@@ -25,17 +25,17 @@ class Player {
     };
 
     // Create an empty HTMLAudioElement offscreen for later use.
-    //* 
-    this.audio = new Audio(); 
-    //*/
     /*
+    this.audio = new Audio();
+    //*/
+    //*
     this.audio = new PlayerWavesurfer();
     //*/
 
     this.audio.defaultPlaybackRate = mergedOptions.playbackRate;
     // eslint-disable-next-line
     // @ts-ignore
-    this.audio.setSinkId(mergedOptions.audioOutputDevice);
+    this.audio.setSinkId(mergedOptions.audioOutputDevice);  // setSinkId is experimental, supported in Chrome
     this.audio.playbackRate = mergedOptions.playbackRate;
     this.audio.volume = mergedOptions.volume;
     this.audio.muted = mergedOptions.muted;

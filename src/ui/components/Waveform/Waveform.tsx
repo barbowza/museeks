@@ -32,6 +32,8 @@ class Waveform extends React.Component<Props, State> {
 
   componentDidMount() {
     Player.getAudio().addEventListener('timeupdate', this.tick);
+
+    /*
     const ele = this.divRef.current!;
     this.wavesurferWrapper.create(ele);
 
@@ -74,6 +76,7 @@ class Waveform extends React.Component<Props, State> {
       tmpWaveSurfer.loadUrl(src);
     }
     Player.getAudio().addEventListener('play', attachPeaks);
+    */
   }
 
   componentWillUnmount() {
