@@ -38,4 +38,31 @@ export default class PlayerWavesurfer extends EventEmitter {
   ): void {
     return this.audio.removeEventListener(type, listener, options);
   }
+
+  public get src() {
+    return this.audio.src;
+  }
+  public set src(value: string) {
+    this.audio.src = value;
+  }
+  public get paused() {
+    return this.audio.paused;
+  }
+  public get duration() {
+    return this.audio.duration;
+  }
+  public get currentTime() {
+    return this.audio.currentTime;
+  }
+  public set currentTime(value:number) {
+    this.audio.currentTime = value;
+  }
+
+  public pause() {
+    return this.audio.pause();
+  }
+
+  public play() {
+    return this.audio.play();
+  }
 }

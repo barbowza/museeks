@@ -9,8 +9,8 @@ interface PlayerOptions {
 }
 
 class Player {
-  private audio: HTMLAudioElement;
-  // private audio: HTMLAudioElement|PlayerWavesurfer;
+  // private audio: HTMLAudioElement;
+  private audio: HTMLAudioElement|PlayerWavesurfer;
 
   private durationThresholdReached: boolean;
   public threshold: number;

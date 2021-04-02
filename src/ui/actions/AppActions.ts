@@ -44,7 +44,7 @@ const init = async () => {
   // Bind player events
   // Audio Events
   Player.getAudio().addEventListener('ended', PlayerActions.next);
-  Player.getAudio().addEventListener('error', PlayerActions.audioError);
+  Player.getAudio().addEventListener('error', (e:Event) => {return PlayerActions.audioError(<ErrorEvent>e)});
   Player.getAudio().addEventListener('timeupdate', async () => {
     if (Player.isThresholdReached()) {
       await LibraryActions.incrementPlayCount(Player.getSrc());
