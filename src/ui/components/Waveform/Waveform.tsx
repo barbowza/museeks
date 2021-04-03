@@ -14,7 +14,7 @@ interface State {
 
 class Waveform extends React.Component<Props, State> {
   private divRef = createRef<HTMLDivElement>();
-  private wavesurferWrapper: any;
+  private wavesurferWrapper: WaveSurferWrapper;
   nothingYet: string;
 
   constructor(props: Props) {
@@ -32,6 +32,28 @@ class Waveform extends React.Component<Props, State> {
 
   componentDidMount() {
     Player.getAudio().addEventListener('timeupdate', this.tick);
+
+    const ele = this.divRef.current!;
+    this.wavesurferWrapper.create(ele);
+
+    Player.getAudio().addEventListener('loadeddata', () => console.log('Audio Event:loadeddata'));
+    Player.getAudio().addEventListener('loadedmetadata', () => console.log('Audio Event:loadedmetadata'));
+    Player.getAudio().addEventListener('loadstart', () => console.log('Audio Event:loadstart'));
+    Player.getAudio().addEventListener('play', () => console.log('Audio Event:play'));
+    Player.getAudio().addEventListener('playing', () => console.log('Audio Event:playing'));
+    Player.getAudio().addEventListener('progress', () => console.log('Audio Event:progress'));
+
+    // Player.setAudioSrcCallback((src:string) => console.log(`AudioSrcCallback: src = ${src}`));
+    Player.setAudioSrcCallback((src:string) => {
+      const audioEle = Player.getAudio();
+      try {
+        this.wavesurferWrapper.assignAudioEle(audioEle);
+      } catch ($e) {
+        console.log($e);
+      }
+    });
+
+
 
     /*
     const ele = this.divRef.current!;

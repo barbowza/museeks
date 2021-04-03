@@ -16,6 +16,12 @@ export default class WaveSurferWrapper {
     });
   }
 
+  assignAudioEle(audio: HTMLAudioElement ): void {
+    if (this.wavesurfer) {
+      this.wavesurfer.load(audio, undefined, 'none'); // try preload='none'
+    }
+  }
+
   assignAudioEleAndPeaks(audio: HTMLAudioElement, peaks: Array<number>): void {
     if (this.wavesurfer) {
       this.wavesurfer.load(audio, peaks);

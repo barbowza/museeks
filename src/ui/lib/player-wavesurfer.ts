@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-// import WaveSurfer from 'wavesurfer.js';
+import WaveSurfer from 'wavesurfer.js';
 
 export default class PlayerWavesurfer extends EventEmitter {
   defaultPlaybackRate: number;
@@ -8,14 +8,14 @@ export default class PlayerWavesurfer extends EventEmitter {
   muted: boolean;
 
   private audio: HTMLAudioElement;
-  // private wavesurfer: WaveSurfer;
+  private wavesurfer: WaveSurfer;
 
   constructor() {
     super();
     this.audio = new Audio();
-    // this.wavesurfer = new WaveSurfer({
-    //   container: this.audio,
-    // });
+    this.wavesurfer = new WaveSurfer({
+      container: this.audio,
+    });
 
     this.defaultPlaybackRate = 1.0;
     this.playbackRate = this.defaultPlaybackRate;

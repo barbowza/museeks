@@ -9,11 +9,13 @@ interface PlayerOptions {
 }
 
 class Player {
-  // private audio: HTMLAudioElement;
-  private audio: HTMLAudioElement|PlayerWavesurfer;
+  private audio: HTMLAudioElement;
+  // private audio: HTMLAudioElement|PlayerWavesurfer;
 
   private durationThresholdReached: boolean;
   public threshold: number;
+
+  private audioSrcCallback: any;
 
   constructor(options?: PlayerOptions) {
     const mergedOptions = {
@@ -25,10 +27,10 @@ class Player {
     };
 
     // Create an empty HTMLAudioElement offscreen for later use.
-    /*
+    //*
     this.audio = new Audio();
     //*/
-    //*
+    /*
     this.audio = new PlayerWavesurfer();
     //*/
 
@@ -42,9 +44,11 @@ class Player {
 
     this.threshold = 0.75;
     this.durationThresholdReached = false;
+    
   }
 
   async play() {
+    console.log(`Player.play`);
     if (!this.audio.src) throw new Error('Trying to play a track but not audio.src is defined');
 
     await this.audio.play();
@@ -97,11 +101,22 @@ class Player {
     await this.audio.setSinkId(deviceId);
   }
 
+  /**
+   * Set the URI of the audio: file or stream
+   * e.g. "file://C:\\Path\\to\\music.mp3"
+   * @param src 
+   */
   setAudioSrc(src: string) {
+    console.log(`Player.setAudioSrc: src = ${src}`);
     // When we change song, need to update the thresholdReached indicator.
     this.durationThresholdReached = false;
-    console.log(`player.ts.setAudioSrc: src = ${src}`);
     this.audio.src = src;
+    if (typeof this.audioSrcCallback === 'function') {
+      this.audioSrcCallback(src);
+    }
+  }
+  setAudioSrcCallback(cb:(src:string)=>void) {
+    this.audioSrcCallback = cb;
   }
 
   setAudioCurrentTime(currentTime: number) {
@@ -125,6 +140,9 @@ class Player {
   }
 }
 
+/**
+ * Export Player as a Singleton
+ */
 export default new Player({
   volume: app.config.get('audioVolume'),
   playbackRate: app.config.get('audioPlaybackRate'),
